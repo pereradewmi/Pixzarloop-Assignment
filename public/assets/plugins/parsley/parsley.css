@@ -1,0 +1,18 @@
+.parsley-error{
+    border: 1px  solid #f5365c !important;
+    color: #f5365c;
+}
+.parsley-success{
+    border: 1px  solid #00bccf !important;
+    color: #00bccf;
+}
+.parsley-errors-list{
+    list-style-type: none;
+    padding-left: 5px;
+}
+
+.parsley-errors-list li{
+    color: #f5365c;
+    font-size: 12px;
+    margin-top: 3px;
+}

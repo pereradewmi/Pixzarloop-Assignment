@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
+    
+    <!-- CSS Links -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('style.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/parsley/parsley.css') }}" rel="stylesheet" type="text/css" />
+
     <title>LMS | @yield('title')</title>
 </head>
 
@@ -18,6 +21,7 @@
     </div>
 
     <div class="main-content">
+        <!-- Success and Error Alerts -->
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
@@ -46,10 +50,15 @@
             }, 1000);
         </script>
 
+        <!-- Content Section -->
         <div class="container">
             @yield('content')
         </div>
     </div>
+
+    <!-- JavaScript Links -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('assets/plugins/parsley/js/parsley.min.js') }}"></script>
 
     @include('backend.components.footer')
 
