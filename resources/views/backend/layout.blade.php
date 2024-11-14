@@ -18,13 +18,42 @@
     </div>
 
     <div class="main-content">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        <script>
+            // Auto-hide alert messages after 5 seconds
+            setTimeout(() => {
+                document.querySelectorAll('.alert').forEach(alert => {
+                    alert.classList.remove('show');
+                    alert.classList.add('fade');
+                    setTimeout(() => alert.remove(), 500); // Removes element after fade out
+                });
+            }, 1000); // Time in milliseconds (5000 ms = 5 seconds)
+        </script>
+
         <div class="container">
             @yield('content')
         </div>
     </div>
 
     @include('backend.components.footer')
-    
+
 </body>
 
 </html>

@@ -5,7 +5,11 @@ Dashboard
 
 @section('content')
 <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Dashboard</h1>
+<div class="d-flex align-items-end text-dark fw-bolder" style="justify-content: end;">
+  <a href="{{route('admin.logout')}}" class="menu-link px-5">Sign Out</a>
+</div>
 <span class="h-20px ms-3 mx-2"></span>
+
 <div class="card-group">
   <div class="card col-sm-12">
     <div class="card-img-top">

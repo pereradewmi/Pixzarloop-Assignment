@@ -5,6 +5,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,17 +18,13 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.home');
-});
+// Route::get('/', function () {
+//     return view('frontend.home');
+// });
 
 // Route::get('/dashboard', function () {
 //     return view('backend.dashboard');
 // })->name('dashboard');
-
-Route::get('/login', function () {
-    return view('frontend.login');
-})->name('login');
 
 // Route::get('/book', function () {
 //     return view('backend.books.index');
@@ -41,13 +38,15 @@ Route::get('/login', function () {
 //     return view('backend.categories.index');
 // })->name('categories');
 
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('frontend.login');
 })->name('login');
 
     Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'authenticate')->name('authenticate');
 });
+
+// ------------------------------------BACKEND--------------------------------------
 
     Route::middleware('auth:sanctum')->group(function () {
 
@@ -69,7 +68,7 @@ Route::get('/login', function () {
     Route::post('/update-book', 'update')->name('book.update');
     Route::post('/delete-book/{id}', 'delete')->name('book.delete');
     Route::post('/change-book-status/{id}/{status}', 'status')->name('book.status');
-});
+    });
 
  // authors - Backend
     Route::controller(AuthorController::class)->group(function () {
