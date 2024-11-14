@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,15 +11,20 @@
     <link href="{{ asset('style.css') }}" rel="stylesheet" type="text/css" />
     <title>LMS | @yield('title')</title>
 </head>
+
 <body>
     <div class="sidebar">
         @include('backend.components.navbar')
     </div>
 
     <div class="main-content">
-        @yield('content')
+        <div class="container">
+            @yield('content')
+        </div>
     </div>
 
-    @include("backend.components.footer")
+    @include('backend.components.footer')
+    
 </body>
+
 </html>

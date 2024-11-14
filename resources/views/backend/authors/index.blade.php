@@ -7,7 +7,7 @@ Authors
 
 <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Authors</h1>
 
-  <a href="{{route('book.add')}}" class="btn btn-primary my-1">
+  <a href="{{route('author.add')}}" class="btn btn-primary my-1">
     <span class="svg-icon svg-icon-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none">
@@ -29,9 +29,9 @@ Authors
       </tr>
     </thead>
     <tbody>
-    @foreach ($authors as $author)
+    @foreach ($authors as $key => $author)
       <tr>
-        <th scope="row">1</th>
+        <th class="text-start">{{ $key + 1 }}</th>
         <td>{{ $author->name }}</td>
         <td class="text-start">
             @if ($author->status==1)
@@ -41,7 +41,7 @@ Authors
             @endif
         </td>
         <td>
-            <form action="{{ url('/author-book', $author->id) }}" method="POST"
+            <form action="{{ url('/delete-author', $author->id) }}" method="POST"
                 class="float-start">
                 @csrf
                 <button type="submit"
@@ -81,7 +81,7 @@ Authors
                 </button>
             </form>
 
-            <a href="{{ url('/author-book', $author->id) }}"
+            <a href="{{ url('/edit-author', $author->id) }}"
                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2 float-start">
                 <span class="svg-icon svg-icon-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

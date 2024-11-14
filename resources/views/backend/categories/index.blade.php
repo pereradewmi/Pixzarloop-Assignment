@@ -7,7 +7,7 @@ Categories
 
 <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Categories</h1>
 
-  <a href="{{route('book.add')}}" class="btn btn-primary my-1">
+  <a href="{{route('category.add')}}" class="btn btn-primary my-1">
     <span class="svg-icon svg-icon-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none">
@@ -29,9 +29,9 @@ Categories
       </tr>
     </thead>
     <tbody>
-    @foreach ($categories as $category)
+    @foreach ($categories as $key => $category)
       <tr>
-        <th scope="row">1</th>
+        <th class="text-start">{{ $key + 1 }}</th>
         <td>{{ $category->name }}</td>
         <td class="text-start">
             @if ($category->status==1)
@@ -41,7 +41,7 @@ Categories
             @endif
         </td>
         <td>
-            <form action="{{ url('/category-book', $category->id) }}" method="POST"
+            <form action="{{ url('/delete-category', $category->id) }}" method="POST"
                 class="float-start">
                 @csrf
                 <button type="submit"
@@ -81,7 +81,7 @@ Categories
                 </button>
             </form>
 
-            <a href="{{ url('/category-book', $category->id) }}"
+            <a href="{{ url('/edit-category', $category->id) }}"
                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2 float-start">
                 <span class="svg-icon svg-icon-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

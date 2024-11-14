@@ -19,46 +19,35 @@ class BookController extends Controller
     public function add()
     {
         $data = (Object) array();
-        $data->stock_no = 'HB-' . ((Book::orderBy('created_at', 'desc')->first()->id ?? 0) + 1);
-        $data->author = MasterAuthor::where('status', 1)->get();
-        $data->category = MasterCategory::where('status', 1)->get();
+        $data->author = Author::where('status', 1)->get();
+        $data->category = Category::where('status', 1)->get();
 
-        return view('backend.books..add', ['data' => $data]);
+        return view('backend.books.add', ['data' => $data]);
     }
 
     public function create(Request $request)
     {
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'author' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-        ]);
-
         $book = new Book;
         $book->title = $request->get('title');
         $book->price = $request->get('price');
+        $book->author_id = $request->get('author');
         $book->category_id = $request->get('category');
         $book->description = $request->get('description');
         $book->save();
-
-        $bookAuthors = new BookAuthor;
-        $bookAuthors->book_id = $book->id;
-        $bookAuthors->author_id = $request->get('author');
-        $bookAuthors->save();
+        //@dd($book);
         
-        return redirect()->route('backend.books..add')->with('success', 'Book added sucessfully !!!');
+        return redirect()->route('book.add')->with('success', 'Book added sucessfully !!!');
     }
 
     public function edit($id)
     {
-        $book = Book::with('bookImage', 'bookAuthor')->find($id);
-        $data = (Object) array();
-        $data->author = MasterAuthor::where('status', 1)->get();
-        $data->category = MasterCategory::where('status', 1)->get();
+        $book = Book::with('author','category')->find($id);
 
-        return view('backend.books..edit', ['book' => $book, 'data' => $data]);
+        $data = (Object) array();
+        $data->author = Author::where('status', 1)->get();
+        $data->category = Category::where('status', 1)->get();
+
+        return view('backend.books.edit', ['book' => $book, 'data' => $data]);
     }
 
 
@@ -78,12 +67,6 @@ class BookController extends Controller
                 'price' => $request->get('price'),
                 'category_id' => $request->get('category'),
                 'description' => $request->get('description'),
-            ]
-        );
-
-        $model = BookAuthor::where('book_id', $request->get('id'))->update(
-            [
-                'author_id' => $request->get('author'),
             ]
         );
 

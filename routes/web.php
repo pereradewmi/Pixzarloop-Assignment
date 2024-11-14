@@ -41,10 +41,23 @@ Route::get('/login', function () {
 //     return view('backend.categories.index');
 // })->name('categories');
 
+Route::get('/login', function () {
+    return view('frontend.login');
+})->name('login');
 
-//dashboard
+    Route::controller(AuthController::class)->group(function () {
+    Route::post('/login', 'authenticate')->name('authenticate');
+});
+
+    Route::middleware('auth:sanctum')->group(function () {
+
+    Route::controller(AuthController::class)->group(function () {
+    Route::get('/logout', 'logout')->name('admin.logout');
+    });
+
+//dashboard - Backend
     Route::controller(DashboardController::class)->group(function () {
-        Route::get('/dashboard', 'all')->name('dashboard');
+    Route::get('/dashboard', 'all')->name('dashboard');
     });
 
 // books - Backend
@@ -61,11 +74,11 @@ Route::get('/login', function () {
  // authors - Backend
     Route::controller(AuthorController::class)->group(function () {
     Route::get('/authors', 'index')->name('authors');
-    Route::get('/add-author', 'add')->name('authors.add');
-    Route::post('/create-author', 'create')->name('create-author');
-    Route::get('/edit-author/{id}', 'edit')->name('edit-author');
-    Route::post('/update-author', 'update')->name('update-author');
-    Route::post('/delete-author/{id}', 'delete')->name('delete-author');
+    Route::get('/add-author', 'add')->name('author.add');
+    Route::post('/create-author', 'create')->name('author.create');
+    Route::get('/edit-author/{id}', 'edit')->name('author.edit');
+    Route::post('/update-author', 'update')->name('author.update');
+    Route::post('/delete-author/{id}', 'delete')->name('author.delete');
     Route::post('/change-author-status/{id}/{status}', 'status')->name('author.status');
 });
 
@@ -78,4 +91,5 @@ Route::get('/login', function () {
     Route::post('/update-category', 'update')->name('category.update');
     Route::post('/delete-category/{id}', 'delete')->name('category.delete');
     Route::post('/change-category-status/{id}/{status}', 'status')->name('category.status');
+});
 });

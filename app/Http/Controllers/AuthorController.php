@@ -16,24 +16,30 @@ class AuthorController extends Controller
         return view('backend.authors.index', ['authors' => $authors]);
     }
 
-    public function create(Request $request)
+    public function add()
     {
-        $validatedData = $request->validate([
-            'author' => 'required|string|max:255',
-        ]);
-
-        $author = new Author;
-        $author->author = $request->get('author');
-        $author->save();
-        
-        return redirect()->route('backend.authors.add')->with('success', 'Author added sucessfully !!!');
+        return view('backend.authors.add');
     }
 
+    public function create(Request $request)
+    {
+        $author = new Author;
+        $author->name = $request->get('name');
+        $author->save();
+        
+        return redirect()->route('authors')->with('success', 'Author added sucessfully !!!');
+    }
+
+    // public function edit($id)
+    // {
+    //     $book = Author::with()->find($id);
+    //     $data = (Object) array();
+    //     $data->author = Author::where('status', 1)->get();
+    //     return view('backend.authors.edit',['author' => $author, 'data' => $data]);
+    // }
     public function edit($id)
     {
-        $author = Author::with('id')->find($id);
-        $author->author = Author::where('status', 1)->get();
-
+        $author = Author::find($id);
         return view('backend.authors.edit',['author' => $author]);
     }
 
@@ -41,18 +47,12 @@ class AuthorController extends Controller
     public function update(Request $request)
     {
         $validatedData = $request->validate([
-            'author' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
         ]);
 
         $model = Author::where('id', $request->get('id'))->update(
             [
-            'author' => $request->get('author'),
-            ]
-        );
-
-        $model = Author::where('book_id', $request->get('id'))->update(
-            [
-            'author_id' => $request->get('author'),
+            'name' => $request->get('name'),
             ]
         );
 

@@ -30,9 +30,9 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($books as $book)
+            @foreach ($books as $key => $book)
                 <tr>
-                    <th scope="row">1</th>
+                    <th class="text-start">{{ $key + 1 }}</th>
                     <td>{{ $book->title }}</td>
                     <td>LKR {{ $book->price }}</td>
                     <td>{{ $book->author['name'] }}</td>
