@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Book;
+use App\Models\Category;
+use App\Models\Author;
+
 class BookController extends Controller
 {
     public function index()
     {
         $books = Book::whereIn('status', [0, 1])->orderby('created_at', 'ASC')->get();
-        return view('admin.book.index', ['books' => $books]);
+        return view('backend.books.index', ['books' => $books]);
     }
 
     public function add()
@@ -19,7 +23,7 @@ class BookController extends Controller
         $data->author = MasterAuthor::where('status', 1)->get();
         $data->category = MasterCategory::where('status', 1)->get();
 
-        return view('admin.book.add', ['data' => $data]);
+        return view('backend.books..add', ['data' => $data]);
     }
 
     public function create(Request $request)
@@ -33,7 +37,6 @@ class BookController extends Controller
         ]);
 
         $book = new Book;
-        $book->stock_no = $request->get('stock_no');
         $book->title = $request->get('title');
         $book->price = $request->get('price');
         $book->category_id = $request->get('category');
@@ -45,7 +48,7 @@ class BookController extends Controller
         $bookAuthors->author_id = $request->get('author');
         $bookAuthors->save();
         
-        return redirect()->route('admin.add-book')->with('success', 'Book added sucessfully !!!');
+        return redirect()->route('backend.books..add')->with('success', 'Book added sucessfully !!!');
     }
 
     public function edit($id)
@@ -55,7 +58,7 @@ class BookController extends Controller
         $data->author = MasterAuthor::where('status', 1)->get();
         $data->category = MasterCategory::where('status', 1)->get();
 
-        return view('admin.book.edit', ['book' => $book, 'data' => $data]);
+        return view('backend.books..edit', ['book' => $book, 'data' => $data]);
     }
 
 

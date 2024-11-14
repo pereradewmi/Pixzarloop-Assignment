@@ -1,0 +1,23 @@
+.main-content {
+    margin-left: 280px;
+    padding: 20px;
+}
+.sidebar {
+    width: 280px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    color: white;
+}
+
+.table{
+    margin-top: 40px;
+}
+
+.badge-dark-success{
+    background-color: blue;
+}
+.badge-dark-danger{
+    background-color: brown;
+}

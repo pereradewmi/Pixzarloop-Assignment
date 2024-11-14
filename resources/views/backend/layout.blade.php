@@ -7,21 +7,8 @@
     <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('style.css') }}" rel="stylesheet" type="text/css" />
     <title>LMS | @yield('title')</title>
-    <style>
-        .main-content {
-            margin-left: 280px;
-            padding: 20px;
-        }
-        .sidebar {
-            width: 280px;
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            color: white;
-        }
-    </style>
 </head>
 <body>
     <div class="sidebar">
