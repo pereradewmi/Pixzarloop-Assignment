@@ -1,42 +1,49 @@
 @extends('backend.layout')
+
 @section('title')
-Dashboard
+    Dashboard
 @endsection
 
 @section('content')
-<h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Dashboard</h1>
-<div class="d-flex align-items-end text-dark fw-bolder" style="justify-content: end;">
-  <a href="{{route('admin.logout')}}" class="menu-link px-5">Sign Out</a>
-</div>
-<span class="h-20px ms-3 mx-2"></span>
-
-<div class="card-group">
-  <div class="card col-sm-12">
-    <div class="card-img-top">
-      <i class="bi bi-filetype-html"></i>
+    <div class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-dark fw-bolder fs-3">Dashboard</h1>
+            <a href="{{ route('admin.logout') }}" class="btn btn-outline-danger">Sign Out</a>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card text-center shadow-sm h-100" style="background: #cbe4ff;">
+                    <div class="card-body">
+                        <div class="card-icon mb-3">
+                            <i class="bi bi-book fs-1 text-primary"></i>
+                        </div>
+                        <h5 class="card-title">Books</h5>
+                        <p class="card-text fs-4 fw-bold">{{ $booksCount }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card text-center shadow-sm h-100" style="background: #d3d0ff;">
+                    <div class="card-body">
+                        <div class="card-icon mb-3">
+                            <i class="bi bi-person-lines-fill fs-1 text-success"></i>
+                        </div>
+                        <h5 class="card-title">Authors</h5>
+                        <p class="card-text fs-4 fw-bold">{{ $authorsCount }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card text-center shadow-sm h-100" style="background: #d5f5d4;">
+                    <div class="card-body">
+                        <div class="card-icon mb-3">
+                            <i class="bi bi-tags fs-1 text-warning"></i>
+                        </div>
+                        <h5 class="card-title">Categories</h5>
+                        <p class="card-text fs-4 fw-bold">{{ $categoriesCount }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-      <h5 class="card-title">Books</h5>
-      <p class="card-text">{{ $booksCount }}</p>
-    </div>
-  </div>
-  <div class="card col-sm-12">
-    <div class="card-img-top">
-      <i class="bi bi-filetype-html"></i>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Authors</h5>
-      <p class="card-text">{{ $authorsCount }}</p>
-    </div>
-  </div>
-  <div class="card col-sm-12">
-    <div class="card-img-top">
-      <i class="bi bi-filetype-html"></i>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Categories</h5>
-      <p class="card-text">{{ $categoriesCount }}</p>
-    </div>
-  </div>
-</div>
 @endsection

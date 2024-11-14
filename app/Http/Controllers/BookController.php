@@ -66,6 +66,7 @@ class BookController extends Controller
                 'title' => $request->get('title'),
                 'price' => $request->get('price'),
                 'category_id' => $request->get('category'),
+                'author_id' => $request->get('author'),
                 'description' => $request->get('description'),
             ]
         );

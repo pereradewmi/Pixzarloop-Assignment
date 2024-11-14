@@ -37,14 +37,13 @@
         @endif
 
         <script>
-            // Auto-hide alert messages after 5 seconds
             setTimeout(() => {
                 document.querySelectorAll('.alert').forEach(alert => {
                     alert.classList.remove('show');
                     alert.classList.add('fade');
-                    setTimeout(() => alert.remove(), 500); // Removes element after fade out
+                    setTimeout(() => alert.remove(), 500);
                 });
-            }, 1000); // Time in milliseconds (5000 ms = 5 seconds)
+            }, 1000);
         </script>
 
         <div class="container">
