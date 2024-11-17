@@ -20,6 +20,7 @@ class DefaultUserSeeder extends Seeder
                 'name' => 'Admin',
                 'email' => 'admin@backend.com',
                 'password' => Hash::make('admin@123'),
+                'role' => 'admin',
             ]
         );
     }

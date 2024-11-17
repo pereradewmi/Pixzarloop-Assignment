@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\ActivityController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +37,10 @@ use App\Http\Controllers\AuthController;
 // Route::get('/categories', function () {
 //     return view('backend.categories.index');
 // })->name('categories');
+
+Route::get('/home', function () {
+    return view('frontend.home');
+});
 
 Route::get('/', function () {
     return view('frontend.login');
@@ -91,4 +95,17 @@ Route::get('/', function () {
     Route::post('/delete-category/{id}', 'delete')->name('category.delete');
     Route::post('/change-category-status/{id}/{status}', 'status')->name('category.status');
 });
+
+ // activities - Backend
+ Route::controller(ActivityController::class)->group(function () {
+    Route::get('/activities-all', 'all')->name('activities.all');
+    Route::get('/activities-borrow', 'borrowView')->name('activities.borrow');
+    Route::get('/activities-handover', 'handoverView')->name('activities.handover');
+    Route::post('/delete-book/{id}', 'delete')->name('book.delete');
+    Route::post('/change-book-status/{id}/{status}', 'status')->name('book.status');
+    Route::post('/delete-borrow/{id}', 'deleteBorrow')->name('borrow.delete');
+    Route::post('/change-borrow-status/{id}/{status}', 'changeBorrowStatus')->name('borrow.status');
+    Route::post('/change-handover-status/{id}/{status}', 'changeHandoverStatus')->name('handover.status');
+});
+
 });

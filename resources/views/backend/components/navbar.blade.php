@@ -30,6 +30,30 @@
               Categories
           </a>
       </li>
+      {{-- <li>
+        <a href="{{ route('categories') }}" class="nav-link {{ Request::is('categories') ? 'active' : 'text-white' }}">
+            <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+            Members
+        </a>
+    </li> --}}
+    <li>
+        <a href="{{ route('activities.all') }}" class="nav-link {{ Request::is('activities-all') ? 'active' : 'text-white' }}">
+            <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+            Activity
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('activities.borrow') }}" class="nav-link {{ Request::is('activities-borrow') ? 'active' : 'text-white' }}">
+            <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+            Borrow Books
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('activities.handover') }}" class="nav-link {{ Request::is('activities-handover') ? 'active' : 'text-white' }}">
+            <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+            HandOvered
+        </a>
+    </li>
   </ul>
 </div>
 

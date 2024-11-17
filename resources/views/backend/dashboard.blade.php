@@ -44,6 +44,17 @@
                     </div>
                 </div>
             </div>
+            {{-- <div class="col-md-4 mb-4">
+                <div class="card text-center shadow-sm h-100" style="background: #d5f5d4;">
+                    <div class="card-body">
+                        <div class="card-icon mb-3">
+                            <i class="bi bi-tags fs-1 text-warning"></i>
+                        </div>
+                        <h5 class="card-title">Members Activity</h5>
+                        <p class="card-text fs-4 fw-bold">{{ $categoriesCount }}</p>
+                    </div>
+                </div>
+            </div> --}}
         </div>
     </div>
 @endsection

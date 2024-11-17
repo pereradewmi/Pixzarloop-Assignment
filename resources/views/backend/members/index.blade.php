@@ -1,59 +1,33 @@
 @extends('backend.layout')
 @section('title')
-    Books
+All Members
 @endsection
 
 @section('content')
-    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Books</h1>
-    <div class="d-flex align-items-end text-dark fw-bolder" style="justify-content: end;">
-        <a href="{{ route('book.add') }}" class="btn btn-primary my-1">
-            <span class="svg-icon svg-icon-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1"
-                        transform="rotate(-90 11.364 20.364)" fill="white" />
-                    <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="white" />
-                </svg>
-            </span>
-            Add New Book
-        </a>
-    </div>
-    <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
-            <form class="d-flex" role="search">
-                <input id="searchField" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-primary" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
+    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Authors</h1>
     <table class="table">
         <thead>
             <tr>
                 <th scope="col">No</th>
-                <th scope="col">Title</th>
-                <th scope="col">Price</th>
-                <th scope="col">Author</th>
-                <th scope="col">Category</th>
+                <th scope="col">Name</th>
                 <th scope="col">Status</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($books as $key => $book)
+            @foreach ($authors as $key => $author)
                 <tr>
                     <th class="text-start">{{ $key + 1 }}</th>
-                    <td>{{ $book->title }}</td>
-                    <td>LKR {{ $book->price }}</td>
-                    <td>{{ $book->author['name'] }}</td>
-                    <td>{{ $book->category['name'] }}</td>
+                    <td>{{ $author->name }}</td>
                     <td class="text-start">
-                        @if ($book->status == 1)
-                            <div class="badge badge-dark-success fw-bolder">Available</div>
+                        @if ($author->status == 1)
+                            <div class="badge badge-dark-success fw-bolder">Active User</div>
                         @else
-                            <div class="badge badge-dark-danger fw-bolder">Unavailable</div>
+                            <div class="badge badge-dark-danger fw-bolder">Inactive User</div>
                         @endif
                     </td>
                     <td>
-                        <form action="{{ url('/delete-book', $book->id) }}" method="POST" class="float-start">
+                        <form action="{{ url('/delete-author', $author->id) }}" method="POST" class="float-start">
                             @csrf
                             <button type="submit" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                 <span class="svg-icon svg-icon-3">
@@ -73,7 +47,7 @@
                             </button>
                         </form>
 
-                        <form action="{{ url('/change-book-status', [$book->id, $book->status]) }}" method="POST"
+                        <form action="{{ url('/change-author-status', [$author->id, $author->status]) }}" method="POST"
                             class="float-start">
                             @csrf
                             <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2">
@@ -91,7 +65,7 @@
                             </button>
                         </form>
 
-                        <a href="{{ url('/edit-book', $book->id) }}"
+                        <a href="{{ url('/edit-author', $author->id) }}"
                             class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2 float-start">
                             <span class="svg-icon svg-icon-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -111,27 +85,3 @@
         </tbody>
     </table>
 @endsection
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const searchField = document.getElementById('searchField');
-
-        if (searchField) {
-            searchField.addEventListener('input', function () {
-                const filter = this.value.toLowerCase();
-                const rows = document.querySelectorAll('tbody tr');
-
-                rows.forEach(row => {
-                    const text = row.textContent.toLowerCase();
-                    row.style.display = text.includes(filter) ? '' : 'none';
-                });
-            });
-        } else {
-            console.error('Element with id "searchField" not found.');
-        }
-    });
-</script>
-
-
-
