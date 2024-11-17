@@ -1,30 +1,27 @@
 <?php
 
 namespace App\Http\Controllers\API;
+
 use App\Models\Book;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;  
 
 class BookController extends Controller
 {
     public function index()
     {
-        // Fetch all books from the database
         $books = Book::all();
     
-        // Return a standardized success response
         return response()->json([
-            'status' => 'success',      // Status of the request
-            'message' => 'Books fetched successfully', // A message to describe the result
-            'data' => $books            // The actual data (in this case, the list of books)
-        ], 200); // 200 HTTP status code for a successful request
+            'status' => 'success',
+            'message' => 'Books fetched successfully',
+            'data' => $books
+        ], 200);
     }
 
     public function create(Request $request)
     {
         try {
-            // Validation (Optional but recommended)
             $validatedData = $request->validate([
                 'title' => 'required|string|max:255',
                 'price' => 'required|numeric',
@@ -33,7 +30,6 @@ class BookController extends Controller
                 'description' => 'nullable|string',
             ]);
     
-            // Create a new book record
             $book = new Book;
             $book->title = $request->get('title');
             $book->price = $request->get('price');
@@ -42,32 +38,94 @@ class BookController extends Controller
             $book->description = $request->get('description');
             $book->save();
     
-            // Log success (optional)
-            Log::info('Book added successfully.', ['book' => $book]);
-    
-            // Return a JSON response with the created book data
             return response()->json([
                 'success' => true,
                 'message' => 'Book added successfully!',
-                'book' => $book,  // Include the newly created book data in the response
-            ], 201); // HTTP status code 201 for resource creation
+                'book' => $book,
+            ], 201);
     
         } catch (\Exception $e) {
-            // Log the exception details if an error occurs
-            Log::error('Error adding book.', [
-                'error_message' => $e->getMessage(),
-                'stack_trace' => $e->getTraceAsString(),
-                'request_data' => $request->all(),
-            ]);
-    
-            // Return a JSON response with an error message
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to add book.',
                 'error' => $e->getMessage(),
-            ], 500); // HTTP status code 500 for internal server error
+            ], 500);
         }
     }
-    
-    
+
+    public function edit($id)
+    {
+        try {
+            $book = Book::findOrFail($id);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Book found for editing.',
+                'data' => $book
+            ], 200); 
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Book not found.',
+                'error' => $e->getMessage(),
+            ], 404);
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $book = Book::findOrFail($id);
+
+            $validatedData = $request->validate([
+                'title' => 'nullable|string|max:255',
+                'price' => 'nullable|numeric',
+                'author' => 'nullable|exists:authors,id',
+                'category' => 'nullable|exists:categories,id',
+                'description' => 'nullable|string',
+            ]);
+
+            $book->title = $request->get('title', $book->title);
+            $book->price = $request->get('price', $book->price);
+            $book->author_id = $request->get('author', $book->author_id);
+            $book->category_id = $request->get('category', $book->category_id);
+            $book->description = $request->get('description', $book->description);
+            $book->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Book updated successfully!',
+                'book' => $book,
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update book.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $book = Book::findOrFail($id);
+            $book->status = 2;
+            $book->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Book deleted successfully!',
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update book status.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }
